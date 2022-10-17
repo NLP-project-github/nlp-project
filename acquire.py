@@ -17,6 +17,11 @@ import requests
 
 from env import github_token, github_username
 
+import pandas as pd
+import numpy as np
+from bs4 import BeautifulSoup
+from time import sleep
+from random import randint
 # TODO: Make a github personal access token.
 #     1. Go here and generate a personal access token: https://github.com/settings/tokens
 #        You do _not_ need select any scopes, i.e. leave all the checkboxes unchecked
@@ -24,11 +29,32 @@ from env import github_token, github_username
 # TODO: Add your github username to your env.py file under the variable `github_username`
 # TODO: Add more repositories to the `REPOS` list below.
 
-REPOS = [
-    "gocodeup/codeup-setup-script",
-    "gocodeup/movies-application",
-    "torvalds/linux",
-]
+list_rep = []
+
+for i in range(14,20):
+    headers = {'User-Agent': github_username}
+    sleep(randint(2,10))
+    response = requests.get('https://github.com/search?l=&p=' + str(i) + '&q=stars%3A%3E100&ref=advsearch&type=Repositories', headers=headers)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    
+    for repo in soup.find_all('a', class_ = 'v-align-middle'):
+        list_rep.append(repo.text)
+        
+list_rep2 = []
+
+for i in range(21,28):
+    headers = {'User-Agent': github_username}
+    sleep(randint(2,10))
+    response = requests.get('https://github.com/search?l=&p=' + str(i) + '&q=stars%3A%3E100&ref=advsearch&type=Repositories', headers=headers)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    
+    for repo in soup.find_all('a', class_ = 'v-align-middle'):
+        list_rep2.append(repo.text)
+        
+full_list = list_rep + list_rep2
+        
+        
+REPOS = full_list
 
 headers = {"Authorization": f"token {github_token}", "User-Agent": github_username}
 
