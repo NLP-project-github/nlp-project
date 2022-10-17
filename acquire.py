@@ -31,10 +31,10 @@ from random import randint
 
 list_rep = []
 
-for i in range(14,20):
+for i in range(1,5):
     headers = {'User-Agent': github_username}
     sleep(randint(2,10))
-    response = requests.get('https://github.com/search?l=&p=' + str(i) + '&q=stars%3A%3E100&ref=advsearch&type=Repositories', headers=headers)
+    response = requests.get('https://github.com/search?l=JavaScript&o=desc&p=' + str(i) + '&q=stars%3A%3E1&s=forks&type=Repositories&spoken_language_code=en', headers=headers)
     soup = BeautifulSoup(response.content, 'html.parser')
     
     for repo in soup.find_all('a', class_ = 'v-align-middle'):
@@ -42,16 +42,38 @@ for i in range(14,20):
         
 list_rep2 = []
 
-for i in range(21,28):
+for i in range(1,5):
     headers = {'User-Agent': github_username}
     sleep(randint(2,10))
-    response = requests.get('https://github.com/search?l=&p=' + str(i) + '&q=stars%3A%3E100&ref=advsearch&type=Repositories', headers=headers)
+    response = requests.get('https://github.com/search?l=Python&o=desc&p=' + str(i) + '&q=stars%3A%3E1&s=forks&type=Repositories&spoken_language_code=en', headers=headers)
     soup = BeautifulSoup(response.content, 'html.parser')
     
     for repo in soup.find_all('a', class_ = 'v-align-middle'):
         list_rep2.append(repo.text)
         
-full_list = list_rep + list_rep2
+list_rep3 = []
+
+for i in range(1,5):
+    headers = {'User-Agent': github_username}
+    sleep(randint(2,10))
+    response = requests.get('https://github.com/search?l=Java&o=desc&p=' + str(i) + '&q=stars%3A%3E1&s=forks&type=Repositories&spoken_language_code=en', headers=headers)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    
+    for repo in soup.find_all('a', class_ = 'v-align-middle'):
+        list_rep3.append(repo.text)
+        
+list_rep4 = []
+
+for i in range(1,5):
+    headers = {'User-Agent': github_username}
+    sleep(randint(2,10))
+    response = requests.get('https://github.com/search?l=C%2B%2B&o=desc&p=' + str(i) + '&q=stars%3A%3E1&s=forks&type=Repositories&spoken_language_code=en', headers=headers)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    
+    for repo in soup.find_all('a', class_ = 'v-align-middle'):
+        list_rep4.append(repo.text)
+        
+full_list = list_rep + list_rep2 + list_rep3 + list_rep4
         
         
 REPOS = full_list
