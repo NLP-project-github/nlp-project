@@ -26,7 +26,12 @@ def pull_data():
     
     # if file is available locally, read it
     if os.path.isfile(filename):
-        return pd.read_csv(filename)
+        # read csv
+        original = pd.read_csv(filename)
+        
+        # removing null values
+        original = original.dropna()
+        return original
     
     # if file not available locally, acquire data from SQL database
     # and write it as csv locally for future use
@@ -38,8 +43,10 @@ def pull_data():
         df = pd.DataFrame(df)
         
         # Write that dataframe to disk for later. Called "caching" the data for later.
-        df.to_csv(filename, index=False)
+        df = df.to_csv(filename, index=False)
 
+        # removing null values
+        df = df.dropna()
         # Return the dataframe to the calling code
         return df 
 
@@ -50,8 +57,7 @@ def basic_clean(original):
     '''
     Takes in a dataframe and returns a dataframe with standardized syntax.
     '''
-    # removing null values
-    original = original.dropna()
+    
     # changes all words to lowercase
     article = original.lower()
     # removes any oddities in unicode character encoding
