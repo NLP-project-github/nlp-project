@@ -27,7 +27,7 @@ def pull_data():
     # if file is available locally, read it
     if os.path.isfile(filename):
         # read csv
-        original = pd.read_csv(filename)
+        original = pd.read_csv(filename, index_col=0)
         
         # removing null values
         original = original.dropna()
