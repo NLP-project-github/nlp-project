@@ -10,15 +10,21 @@ After doing so, run it like this:
 
 To create the `data.json` file that contains the data.
 """
+
+# common imports
 import os
-import json
-from typing import Dict, List, Optional, Union, cast
-import requests
-
-from env import github_token, github_username
-
 import pandas as pd
 import numpy as np
+
+# imports recommended by curriculumn 
+from typing import Dict, List, Optional, Union, cast
+
+# importing access information from custom env file
+from env import github_token, github_username
+
+# imports used to process NLP methodology
+import requests
+import json
 from bs4 import BeautifulSoup
 from time import sleep
 from random import randint
@@ -29,6 +35,10 @@ from random import randint
 # TODO: Add your github username to your env.py file under the variable `github_username`
 # TODO: Add more repositories to the `REPOS` list below.
 
+# Our data comes from the top 160 forked repositories on Github as of 17 Oct 2022 (languages.csv)
+
+
+# web scraping by top four programming languages (JavaScript, Python, Java, C)
 list_rep = []
 
 for i in range(1,5):
@@ -39,7 +49,8 @@ for i in range(1,5):
     
     for repo in soup.find_all('a', class_ = 'v-align-middle'):
         list_rep.append(repo.text)
-        
+
+# Python pull        
 list_rep2 = []
 
 for i in range(1,5):
@@ -50,7 +61,9 @@ for i in range(1,5):
     
     for repo in soup.find_all('a', class_ = 'v-align-middle'):
         list_rep2.append(repo.text)
-        
+
+
+# Java pull        
 list_rep3 = []
 
 for i in range(1,5):
@@ -61,7 +74,9 @@ for i in range(1,5):
     
     for repo in soup.find_all('a', class_ = 'v-align-middle'):
         list_rep3.append(repo.text)
-        
+
+
+# C pull        
 list_rep4 = []
 
 for i in range(1,5):
@@ -73,11 +88,14 @@ for i in range(1,5):
     for repo in soup.find_all('a', class_ = 'v-align-middle'):
         list_rep4.append(repo.text)
         
+
+# combines sepearate pulls of repo names
 full_list = list_rep + list_rep2 + list_rep3 + list_rep4
         
-        
+# renames to REPOS to be used later     
 REPOS = full_list
 
+# assigns token and username from env.py
 headers = {"Authorization": f"token {github_token}", "User-Agent": github_username}
 
 if headers["Authorization"] == "token " or headers["User-Agent"] == "":
@@ -87,6 +105,11 @@ if headers["Authorization"] == "token " or headers["User-Agent"] == "":
 
 
 def github_api_request(url: str) -> Union[List, Dict]:
+    
+    '''
+    Given an url and returns a response code 
+    '''
+    
     response = requests.get(url, headers=headers)
     response_data = response.json()
     if response.status_code != 200:
@@ -98,6 +121,11 @@ def github_api_request(url: str) -> Union[List, Dict]:
 
 
 def get_repo_language(repo: str) -> str:
+    
+    '''
+    Given a repository name and returns the language tagged in the repository 
+    '''
+    
     url = f"https://api.github.com/repos/{repo}"
     repo_info = github_api_request(url)
     if type(repo_info) is dict:
@@ -113,6 +141,11 @@ def get_repo_language(repo: str) -> str:
 
 
 def get_repo_contents(repo: str) -> List[Dict[str, str]]:
+    
+    '''
+    Given a repository name and returns content found within the repository. 
+    '''
+    
     url = f"https://api.github.com/repos/{repo}/contents/"
     contents = github_api_request(url)
     if type(contents) is list:
