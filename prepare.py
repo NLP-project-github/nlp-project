@@ -1,12 +1,47 @@
+# standard imports
 import pandas as pd
 import numpy as np
+import os
+
+# import custom files
+import acquire
+
+# imports used to manipulate text
 import unicodedata
 import re
 import json
-
 import nltk
 from nltk.tokenize.toktok import ToktokTokenizer
 from nltk. corpus import stopwords
+
+
+# creates initial dataframe either from csv or running acquire.py to web scrape data directly
+def pull_data():
+    
+    '''
+    Returns initial dataframe with data pulled from github.com
+    '''
+    
+    filename = "languages.csv"
+    
+    # if file is available locally, read it
+    if os.path.isfile(filename):
+        return pd.read_csv(filename)
+    
+    # if file not available locally, acquire data from SQL database
+    # and write it as csv locally for future use
+    else:
+        # read the SQL query into a dataframe
+        execfile('acquire.py')
+        df = open('data.json')
+        df = json.load(df)
+        df = pd.DataFrame(df)
+        
+        # Write that dataframe to disk for later. Called "caching" the data for later.
+        df.to_csv(filename, index=False)
+
+        # Return the dataframe to the calling code
+        return df 
 
 
 
@@ -15,7 +50,8 @@ def basic_clean(original):
     '''
     Takes in a dataframe and returns a dataframe with standardized syntax.
     '''
-    
+    # removing null values
+    original = original.dropna()
     # changes all words to lowercase
     article = original.lower()
     # removes any oddities in unicode character encoding
@@ -33,6 +69,7 @@ def tokenize(article):
     Takes in cleaned dataframe and returns a dataframe with text broken down from larger body
     to smaller bodies of text.
     '''
+    
     #create the tokenizer
     tokenize = nltk.tokenize.ToktokTokenizer()
     #use the tokenizer
@@ -94,6 +131,7 @@ def prepare_article(original):
     Takes in a dataframe and applies various other functions to create new columns for clean, stemmed,
     and lemmatized data.  Returns new dataframe with updated columns
     '''
+    
     # creates cleaned readme_content column
     original['clean'] = original['readme_contents'].apply(basic_clean).apply(tokenize).apply(remove_stopwords)
     # creates stemmed readme_content column
