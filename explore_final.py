@@ -64,6 +64,9 @@ def q1(JavaScript_words, Python_words, Java_words, C_plus_plus_words, all_words)
     return word_counts
 
 def q2_word_cloud_1(JavaScript_words, Python_words, Java_words, C_plus_plus_words, all_words):
+    """
+    This function makes word clouds for all words, Javascript, and Python.
+    """
     all_cloud = WordCloud(background_color='white', height=1000, width=400).generate(' '.join(all_words))
     javascript_cloud = WordCloud(background_color='white', height=600, width=800).generate(' '.join(JavaScript_words))
     python_cloud = WordCloud(background_color='white', height=600, width=800).generate(' '.join(Python_words))
@@ -82,17 +85,20 @@ def q2_word_cloud_1(JavaScript_words, Python_words, Java_words, C_plus_plus_word
     for ax in axs: ax.axis('off')
 
 def q2_word_cloud_2(JavaScript_words, Python_words, Java_words, C_plus_plus_words, all_words):
+    """
+    This function makes word clouds for all words, Java, and C++.
+    """
     all_cloud = WordCloud(background_color='white', height=1000, width=400).generate(' '.join(all_words))
     java_cloud = WordCloud(background_color='white', height=600, width=800).generate(' '.join(Java_words))
     c_plus_plus_cloud = WordCloud(background_color='white', height=600, width=800).generate(' '.join(C_plus_plus_words))
-
+    # Set the figsize and axis
     plt.figure(figsize=(10, 8))
     axs = [plt.axes([0, 0, .5, 1]), plt.axes([.5, .5, .5, .5]), plt.axes([.5, 0, .5, .5])]
-
+    # Plot the results
     axs[0].imshow(all_cloud)
     axs[1].imshow(java_cloud)
     axs[2].imshow(c_plus_plus_cloud)
-
+    # Make titles
     axs[0].set_title('All Words')
     axs[1].set_title('Java')
     axs[2].set_title('C++')
@@ -100,6 +106,10 @@ def q2_word_cloud_2(JavaScript_words, Python_words, Java_words, C_plus_plus_word
     for ax in axs: ax.axis('off')
 
 def q3(JavaScript_words, Python_words, Java_words, C_plus_plus_words, all_words):
+    """
+    This function make bigrams for each coding language and all words.
+    It then turns them into word clouds for visualization.
+    """
     # Making Bigrams for each coding language
     top_20_javascript_bigrams = (pd.Series(nltk.ngrams(JavaScript_words, 2))
                       .value_counts()
@@ -139,15 +149,16 @@ def q3(JavaScript_words, Python_words, Java_words, C_plus_plus_words, all_words)
 
     data5 = {k[0] + ' ' + k[1]: v for k, v in top_20_c_plus_plus_bigrams.to_dict().items()}
     img5 = WordCloud(background_color='white', width=2000, height=1000).generate_from_frequencies(data5)
-
+    # Set the axis
     axs = [plt.axes([.5, 0, .5, .5]), plt.axes([0, 0, .5, .5]), plt.axes([.5, .5, .5, .5])
         , plt.axes([0, .5, .5, .5]), plt.axes([0, 1, 1, 1])]
-
+    # Plot the results
     axs[4].imshow(img)
     axs[3].imshow(img2)
     axs[2].imshow(img3)
     axs[1].imshow(img4)
     axs[0].imshow(img5)
+    # Make titles
     axs[4].set_title('All Words')
     axs[3].set_title('Javascript')
     axs[2].set_title('Python')
