@@ -3,7 +3,7 @@
 ## Project Goals
 
 > - Work on a NLP project that touches the full DS pipeline (data acquistion (web scraping), preparation, exploratory data analysis, modeling, and model evaluation), provide findings, and offer key takeaways.
-> - Create modules (acquire.py, prepare.py, explore.py, and modeling.py) that make our process repeateable and our report (notebook) easier to read and follow.
+> - Create modules (acquire.py, prepare.py, explore_final.py, and model.py) that make our process repeateable and our report (notebook) easier to read and follow.
 > - Ask exploratory questions of our data that will help us understand more about how diction differs or is similar between programming languages.
 > - Construct a model to predict the main programming language of a repository, given the text of the README file.
 
@@ -13,7 +13,7 @@
 ### Deliverables
 
 > - **Readme (.md)**
-> - **Prepare Modele (.py)**
+> - **Modules (.py)**
 > - **Final Notebook (.ipynb)**
 > - **Recorded Presentation w/ slides**
 
@@ -49,6 +49,7 @@
 ### Acquire Phase
 
 > - Utilized our acquire file to web scrape the gituhub search results to gather our data.
+> - We used 4 of the top programming languages from github ensuring that we pulled an equal number of repositories for each language (40) on Oct 17, 2022.
 
 ### Prepare Phase
 
@@ -75,8 +76,8 @@
 ## How To Reproduce My Project
 
 > 1. Read this README.md
-> 2. Download the acquire.py, prepare.py, explore.py, modeling.py and final_report.ipynb files into your directory along with the languages.csv.
-> 3. Enusre you have an env.py file that contains your github_token, and github_username.
+> 2. Download the acquire.py, prepare.py, explore_final.py, model.py and final_notebook.ipynb files into your directory along with the languages.csv.
+> 3. Ensure you have an env.py file that contains your github_token, and github_username.
 > 4. Run our final_report.ipynb notebook
 > 4. Congratulations! You can predict programming languages found within any repository on github using just a README file!
 
