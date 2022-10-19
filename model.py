@@ -55,43 +55,48 @@ from nltk.tokenize.toktok import ToktokTokenizer
 from nltk.corpus import stopwords
 
 def model_top_3(df):
+    """
+    This function runs our top 3 models on the train and validate sets,
+    it then prints out the results.
+    """
     # Make the object
     tfidf = TfidfVectorizer()
     # Fit/Transform
     X = tfidf.fit_transform(df.lemmatized)
     # What we are predicting
     y = df.language
-
+    # Split X and y into train, validate, and test 
     X_train_val, X_test, y_train_val, y_test = train_test_split(X, y, stratify=y, test_size=.2, random_state=123)
 
     X_train, X_validate, y_train, y_validate = train_test_split(X_train_val, y_train_val, stratify=y_train_val, test_size=.25, random_state=123)
 
+    # Make train and validate a dataframe
     train = pd.DataFrame(dict(actual=y_train))
     validate = pd.DataFrame(dict(actual=y_validate))
-
+    # Make the object and fit it
     lm = LogisticRegression().fit(X_train, y_train)
-
+    # Make columns for the predictions
     train['predicted_lm'] = lm.predict(X_train)
     validate['predicted_lm'] = lm.predict(X_validate)
-
+    # Make the object and fit it
     MNBclf = MultinomialNB()
     MNBclf.fit(X_train, y_train)
-
+    # Make columns for the predictions
     train['predicted_MNBclf'] = MNBclf.predict(X_train)
     validate['predicted_MNBclf'] = MNBclf.predict(X_validate)
-
+    # Make the object and fit/transform it
     vectorizer = CountVectorizer()
     X = vectorizer.fit_transform(df.lemmatized)
-
+    # Split X and y into train, validate, and test.
     X_train_val, X_test, y_train_val, y_test = train_test_split(X, y, stratify=y, test_size=.2, random_state=123)
 
     X_train, X_validate, y_train, y_validate = train_test_split(X_train_val, y_train_val, stratify=y_train_val, test_size=.25, random_state=123)
-
+    # Make the object and fit it
     lm = LogisticRegression().fit(X_train, y_train)
-
+    # Make columns for the predictions
     train['bow_predicted_lm'] = lm.predict(X_train)
     validate['bow_predicted_lm'] = lm.predict(X_validate)
-
+    # Print out the results
     print('Bag of Words Logistic Regression Train Accuracy: {:.2%}'.format(accuracy_score(train.actual, train.bow_predicted_lm)))
     print('-------------')
     print('Bag of Words Logistic Regression Validate Accuracy: {:.2%}'.format(accuracy_score(validate.actual, validate.bow_predicted_lm)))
@@ -111,22 +116,28 @@ def model_top_3(df):
     print(classification_report(validate.actual, validate.predicted_lm))
 
 def model_test(df):
+    """
+    This function uses the TF-IDF feature to run a 
+    logistic regression model on the test dataset
+    and print the results.
+    """
+    # Make the object
     tfidf = TfidfVectorizer()
     # Fit/Transform
     X = tfidf.fit_transform(df.lemmatized)
     # What we are predicting
     y = df.language
-
+    # Split X and y into train, validate, and test
     X_train_val, X_test, y_train_val, y_test = train_test_split(X, y, stratify=y, test_size=.2, random_state=123)
 
     X_train, X_validate, y_train, y_validate = train_test_split(X_train_val, y_train_val, stratify=y_train_val, test_size=.25, random_state=123)
-
+    # Make test a dataframe
     test = pd.DataFrame(dict(actual=y_test))
-
+    # Make the object and fit it
     lm = LogisticRegression().fit(X_train, y_train)
-
+    # Make a column for the predictions
     test['predicted_lm'] = lm.predict(X_test)
-
+    # Print the results
     print('TF-IDF Logistic Regression Test Accuracy: {:.2%}'.format(accuracy_score(test.actual, test.predicted_lm)))
     print('-------------')
     print(classification_report(test.actual, test.predicted_lm))
