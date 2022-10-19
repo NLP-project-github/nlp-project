@@ -33,9 +33,11 @@
 
 
 ## Executive Summary - Key Findings and Next Steps
-> 1. Utilizing our best model (Logistic Regression) we were able to increase the accuracy of our predictions by 62% (87% on test)
+> 1. Some of our key findings were that the words python and learning are very common and are almost exclusive to python.  C++ seems to have more bigrams relating to Github and Java and C++ seem to have less actual words then Javascript and Python.  Finally, Python has its name as one of it's more common words while C++, Java, and Javescript do not.  
 
-> 2. Next steps are to acquire a larger amount of README files and possibly network with someone from Github who can give us unrestricted access to the site in order to avoid issues with our web scraping efforts.
+> 2. Utilizing our best model (Logistic Regression) we were able to increase the accuracy of our predictions by 62% (87% on test).
+
+> 3. Next steps are to acquire a larger amount of README files and possibly network with someone from Github who can give us unrestricted access to the site in order to avoid issues with our web scraping efforts.
 
 ## Project Plan
 
