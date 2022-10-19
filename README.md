@@ -32,15 +32,12 @@
 |lemmatized  |the README text after breaking down into segments and converting each word to its 'root' word| 
 
 
-## Initial Hypotheses
--  _____________
+## Executive Summary - Key Findings and Next Steps
+> 1. Some of our key findings were that the words python and learning are very common and are almost exclusive to python.  C++ seems to have more bigrams relating to Github and Java and C++ seem to have less actual words then Javascript and Python.  Finally, Python has its name as one of it's more common words while C++, Java, and Javescript do not.  
 
-## Executive Summary - Key Findings and Recommendations
-> 1. __________________
+> 2. Utilizing our best model (Logistic Regression) we were able to increase the accuracy of our predictions by 62% (87% on test).
 
-> 2. Our recommendations are ________________
-
-> 3. Next steps ____________________
+> 3. Next steps are to acquire a larger amount of README files and possibly network with someone from Github who can give us unrestricted access to the site in order to avoid issues with our web scraping efforts.
 
 ## Project Plan
 
@@ -61,16 +58,19 @@
 ### Explore Phase
 
 > - Created visualizations via word clouds and bar plots to identify trends in word usage.
-> - Asked clear questions about that data such as ____________.
-> - Utilized hypothesis testing to best answer and provide insight into our aformentioned questions.
+> - Asked clear questions about that data such as "What are the most commonly used words for each programming language?".
 
 ### Model Phase
 
-> -  _________________________
+> - We used TF-IDF and bag of words for feature extraction prior to modeling
+> - With bag of words, we created one model using logistic regression
+> - With TF-IDF, we created two models using logistic regression and naive bayes.
+> - Our best model was our logistic regression model utilizing TF-IDF for feature extration improving accuracy by 62%.
 
 ### Deliver Phase
 
 > - Prepped our final notebook with a clean presentation to best present our findings and process to our peers and instructors.
+> - Created a slide presentation and recording to deliver to instructors for review.
 
 ## How To Reproduce My Project
 
