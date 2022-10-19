@@ -33,7 +33,7 @@
 
 
 ## Executive Summary - Key Findings and Next Steps
-> 1. Some of our key findings were that the words python and learning are very common and are almost exclusive to python.  C++ seems to have more bigrams relating to Github and Java and C++ seem to have less actual words then Javascript and Python.  Finally, Python has its name as one of it's more common words while C++, Java, and Javescript do not.  
+> 1. Some of our key findings were that the words python and learning are very common and are almost exclusive to the python programming language.  C++ seems to have more bigrams relating to Github and Java and C++ seem to have less actual words then Javascript and Python.  Finally, Python has its name as one of it's most common word while C++, Java, and Javescript do not.  
 
 > 2. Utilizing our best model (Logistic Regression) we were able to increase the accuracy of our predictions by 62% (87% on test).
 
@@ -78,7 +78,7 @@
 > 1. Read this README.md
 > 2. Download the acquire.py, prepare.py, explore_final.py, model.py and final_notebook.ipynb files into your directory along with the languages.csv.
 > 3. Ensure you have an env.py file that contains your github_token, and github_username.
-> 4. Run our final_report.ipynb notebook
+> 4. Run our final_report.ipynb notebook (our model is streamlined for the top 4 programming languages on github)
 > 4. Congratulations! You can predict programming languages found within any repository on github using just a README file!
 
 ## Attachments/Links
