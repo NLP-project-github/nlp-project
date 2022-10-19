@@ -85,3 +85,6 @@
 
 > Canva Presentation
 > https://www.canva.com/design/DAFPchWZZ3A/x8FAm4LIWIPlDJh9lOPhPQ/edit?utm_content=DAFPchWZZ3A&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+
+> Video Presentation Link
+> https://www.canva.com/design/DAFPchWZZ3A/JFMu-jhqQwmN1caXpThqYg/view?utm_content=DAFPchWZZ3A&utm_campaign=designshare&utm_medium=link&utm_source=recording_view
