@@ -32,6 +32,8 @@ from sklearn.cluster import DBSCAN
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, accuracy_score
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.naive_bayes import MultinomialNB
 
 # NLP Imports
 import unicodedata
@@ -96,3 +98,60 @@ def q2_word_cloud_2(JavaScript_words, Python_words, Java_words, C_plus_plus_word
     axs[2].set_title('C++')
 
     for ax in axs: ax.axis('off')
+
+def q3(JavaScript_words, Python_words, Java_words, C_plus_plus_words, all_words):
+    # Making Bigrams for each coding language
+    top_20_javascript_bigrams = (pd.Series(nltk.ngrams(JavaScript_words, 2))
+                      .value_counts()
+                      .head(20))
+    top_20_python_bigrams = (pd.Series(nltk.ngrams(Python_words, 2))
+                        .value_counts()
+                        .head(20))
+    top_20_java_bigrams = (pd.Series(nltk.ngrams(Java_words, 2))
+                        .value_counts()
+                        .head(20))
+    top_20_c_plus_plus_bigrams = (pd.Series(nltk.ngrams(C_plus_plus_words, 2))
+                        .value_counts()
+                        .head(20))
+    top_20_all_words_bigrams = (pd.Series(nltk.ngrams(all_words, 2))
+                        .value_counts()
+                        .head(20))
+    
+    # We can supply our own values to be used to determine how big the words (or
+    # phrases) should be through the `generate_from_frequencies` method. The
+    # supplied values must be in the form of a dictionary where the keys are the
+    # words (phrases), and the values are numbers that correspond to the sizes.
+    #
+    # We'll convert our series to a dictionary, and convert the tuples that make up
+    # the index into a single string that holds each phrase.
+
+    data = {k[0] + ' ' + k[1]: v for k, v in top_20_all_words_bigrams.to_dict().items()}
+    img = WordCloud(background_color='white', width=4000, height=2000).generate_from_frequencies(data)
+
+    data2 = {k[0] + ' ' + k[1]: v for k, v in top_20_javascript_bigrams.to_dict().items()}
+    img2 = WordCloud(background_color='white', width=2000, height=1000).generate_from_frequencies(data2)
+
+    data3 = {k[0] + ' ' + k[1]: v for k, v in top_20_python_bigrams.to_dict().items()}
+    img3 = WordCloud(background_color='white', width=2000, height=1000).generate_from_frequencies(data3)
+
+    data4 = {k[0] + ' ' + k[1]: v for k, v in top_20_java_bigrams.to_dict().items()}
+    img4 = WordCloud(background_color='white', width=2000, height=1000).generate_from_frequencies(data4)
+
+    data5 = {k[0] + ' ' + k[1]: v for k, v in top_20_c_plus_plus_bigrams.to_dict().items()}
+    img5 = WordCloud(background_color='white', width=2000, height=1000).generate_from_frequencies(data5)
+
+    axs = [plt.axes([.5, 0, .5, .5]), plt.axes([0, 0, .5, .5]), plt.axes([.5, .5, .5, .5])
+        , plt.axes([0, .5, .5, .5]), plt.axes([0, 1, 1, 1])]
+
+    axs[4].imshow(img)
+    axs[3].imshow(img2)
+    axs[2].imshow(img3)
+    axs[1].imshow(img4)
+    axs[0].imshow(img5)
+    axs[4].set_title('All Words')
+    axs[3].set_title('Javascript')
+    axs[2].set_title('Python')
+    axs[1].set_title('Java')
+    axs[0].set_title('C++')
+    for ax in axs: ax.axis('off')
+    plt.show()
